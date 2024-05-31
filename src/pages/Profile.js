@@ -1,12 +1,47 @@
 import { Col, Container, Row, Image, Table } from "react-bootstrap";
 import Layout from "../Layout";
 import ClsCard from "../components/ClsCard";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 export default function Profile() {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+  async function getUser() {
+    try {
+      const activeUser = window.sessionStorage.getItem("activeUser");
+
+      if (activeUser === null) {
+        return navigate("/login");
+      }
+
+      var url = "http://localhost:5137/api/v1/user/me?userId=" + activeUser;
+      const result = await axios.get(url);
+      const user = result.data;
+      setUser(user);
+
+      console.log(user);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  function logout() {
+    window.sessionStorage.clear();
+    return navigate("/login");
+  }
+
   return (
     <Layout>
       <Container>
+        <br></br>
+        <br></br>
         <br></br>
         <Row xs={12}>
           <Col xs={6}>
@@ -14,8 +49,8 @@ export default function Profile() {
             <br></br>
 
             <div>
-              <h2>Kanika Chamroun</h2>
-              <span>12 A</span>
+              <h2>{user.username}</h2>
+              <span>{user.role}</span>
             </div>
 
             <br></br>
@@ -23,24 +58,29 @@ export default function Profile() {
             <table class="table">
               <tbody>
                 <tr>
+                  <td>UserID</td>
+                  <td>{user.userID}</td>
+                </tr>
+                <tr>
                   <td>Email</td>
-                  <td>nika@ere-sys.com</td>
+                  <td>{user.email}</td>
                 </tr>
                 <tr>
                   <td>Phone Number</td>
-                  <td>089 300 302</td>
+                  <td>{user.phonenumber}</td>
                 </tr>
                 <tr>
                   <td>Parent Contact</td>
-                  <td>sivmey@gmail.com</td>
+                  <td>{user.parentEmail}</td>
                 </tr>
               </tbody>
             </table>
             <br></br>
 
-            <Link to="/login">
-              <button className="btn btn-danger">Logout</button>
-            </Link>
+            <button onClick={logout} className="btn btn-danger">
+              <span className="me-3">Logout</span>
+              <FontAwesomeIcon icon={faArrowRightFromBracket} />
+            </button>
           </Col>
         </Row>
       </Container>

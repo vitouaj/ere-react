@@ -1,12 +1,13 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-function ClsCard() {
+function ClsCard({ title, classId, teacherId }) {
   return (
-    <Card style={{ width: "25rem" }}>
+    <Card className="w-100">
       <Card.Body>
-        <Card.Title>12 A</Card.Title>
-        <Card.Text>Class of joy</Card.Text>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>Class ID: {classId}</Card.Text>
+        <Card.Text>Teacher ID: {teacherId}</Card.Text>
       </Card.Body>
     </Card>
   );

@@ -1,3 +1,6 @@
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,7 +9,9 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 
-export default function Layout({ children }) {
+import Homepage from "./pages/Homepage";
+
+export default function SecondInnerLayout({ children }) {
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
@@ -26,7 +31,18 @@ export default function Layout({ children }) {
           <Sidebar />
         </Col>
         <Col className="overflow-auto" xs={9}>
-          {children}
+          <Tabs
+            defaultActiveKey="profile"
+            id="fill-tab-example"
+            className="mb-3"
+            fill
+          >
+            <Tab eventKey="home" title="Reports">
+              <Homepage />
+            </Tab>
+            <Tab eventKey="profile" title="Subject-Item"></Tab>
+            <Tab eventKey="longer-tab" title="Student"></Tab>
+          </Tabs>
         </Col>
       </Row>
       <Container className="fixed-bottom">

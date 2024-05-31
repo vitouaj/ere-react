@@ -1,19 +1,37 @@
 import { Container, Dropdown, Row } from "react-bootstrap";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export default function InnerSidebar() {
+export default function InnerSidebar({ classId, name }) {
+  const navigate = useNavigate();
   return (
     <div>
       <Container>
-        <Link to="/classroom/subject-item">
-          <Row className="bg-light px-3 py-2 btn w-100 text-start">
-            Subject Item
-          </Row>
-        </Link>
-        <Link to="/classroom/reports">
-          <Row className="bg-light px-3 py-2 btn w-100 text-start">Reports</Row>
-        </Link>
+        <Row
+          onClick={() =>
+            navigate("/classroom/subject-items/" + classId + "?name=" + name)
+          }
+          className="bg-light px-3 py-2 btn w-100 text-start"
+        >
+          Subject Item
+        </Row>
+        <Row
+          onClick={() =>
+            navigate("/classroom/reports/" + classId + "?name=" + name)
+          }
+          className="bg-light px-3 py-2 btn w-100 text-start"
+        >
+          Reports
+        </Row>
+        <Row
+          onClick={() =>
+            navigate("/classroom/students/" + classId + "?name=" + name)
+          }
+          className="bg-light px-3 py-2 btn w-100 text-start"
+        >
+          Students
+        </Row>
       </Container>
     </div>
   );
