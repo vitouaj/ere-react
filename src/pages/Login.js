@@ -48,10 +48,16 @@ function Login() {
     }
 
     if (res.status === 200) {
-      window.sessionStorage.setItem("activeUser", res.data.payload);
+      window.sessionStorage.setItem("activeUser", res.data.payload.userId);
+      window.sessionStorage.setItem("activeUserRole", res.data.payload.roleId);
       return setTimeout(() => {
         setLoading(false);
-        navigate("/");
+
+        if (res.data.payload.roleId === 2) {
+          navigate("/");
+        } else {
+          navigate("/student-homepage");
+        }
       }, 2000);
     } else {
       return setTimeout(() => {

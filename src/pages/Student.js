@@ -135,14 +135,14 @@ export default function Student() {
             <Col>
               <br></br>
               <div>
-                <h2>{classname}</h2>
-                <span>{classID}</span>
+                <h4 className="">{classname}</h4>
+                <span className="sp-normal">{classID}</span>
               </div>
               <br></br>
               <div>
                 <button onClick={handleShow} className="btn btn-primary">
-                  <FontAwesomeIcon icon={faPeopleGroup} />
-                  <span className="mx-3"> Add new Student</span>
+                  <FontAwesomeIcon className="sp-normal" icon={faPeopleGroup} />
+                  <span className="mx-2 sp-normal"> Enroll Students</span>
                 </button>
               </div>
 
@@ -180,7 +180,7 @@ export default function Student() {
               </Modal>
 
               <br></br>
-              <table class="table table-striped">
+              <table class="table sp-normal">
                 <thead>
                   <tr>
                     <th scope="col">No</th>

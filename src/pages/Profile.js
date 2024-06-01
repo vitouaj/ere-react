@@ -44,18 +44,18 @@ export default function Profile() {
         <br></br>
         <br></br>
         <Row xs={12}>
-          <Col xs={6}>
+          <Col className="mx-auto my-4" xs={6}>
             <Image src="/user-avatar.png" roundedCircle width={200} />
             <br></br>
 
             <div>
-              <h2>{user.username}</h2>
-              <span>{user.role}</span>
+              <h4 className="">{user.username}</h4>
+              <span className="sp-normal">{user.role}</span>
             </div>
 
             <br></br>
 
-            <table class="table">
+            <table class="table sp-normal">
               <tbody>
                 <tr>
                   <td>UserID</td>
@@ -78,8 +78,11 @@ export default function Profile() {
             <br></br>
 
             <button onClick={logout} className="btn btn-danger">
-              <span className="me-3">Logout</span>
-              <FontAwesomeIcon icon={faArrowRightFromBracket} />
+              <span className="me-3 sp-normal">Logout</span>
+              <FontAwesomeIcon
+                className="sp-normal"
+                icon={faArrowRightFromBracket}
+              />
             </button>
           </Col>
         </Row>

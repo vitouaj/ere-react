@@ -20,7 +20,7 @@ export default function Layout({ children }) {
         <Navigation userEmail={userEmail} />
       </Container>
       <Row className="h-100 w-100">
-        <Col>
+        <Col className="bg-light">
           <br></br>
           <br></br>
           <Sidebar />
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
           {children}
         </Col>
       </Row>
-      <Container className="fixed-bottom">
+      <Container className="fixed-bottom bg-light">
         <Footer />
       </Container>
     </Container>

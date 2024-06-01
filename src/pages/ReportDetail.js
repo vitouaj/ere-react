@@ -39,6 +39,7 @@ export default function ReportDetail() {
   const [seletedMonth, setSelectedMonth] = useState(0);
   const [studentName, setStudentName] = useState("");
   const [reportRecord, setReportRecord] = useState({});
+  const [reportId, setReportId] = useState("");
   const [parentCmt, setParentCmt] = useState("");
 
   const gradeList = ["A", "B", "C", "D", "E", "F"];
@@ -107,6 +108,7 @@ export default function ReportDetail() {
   }
 
   async function mapToState(record) {
+    setReportId(record.reportId);
     setSelectedStudent(record.studentId);
     setAbsence(record.absence);
     setAverage(record.average);
@@ -137,27 +139,30 @@ export default function ReportDetail() {
   return (
     <div className="vh-100">
       {isLoading ? (
-        <div className="row w-100 h-100 bg-light opacity-25">
+        <div className="row  h-100 bg-light opacity-25">
           <div className="d-flex justify-content-center align-items-center">
             <Spinner animation="border" />
           </div>
         </div>
       ) : (
-        <div className="ctn">
+        <div className="ctn bg-light">
+          <br></br>
           <br></br>
           <Row>
             <Col>
               <div>
-                <h2>{classname}</h2>
-                <small>{classID}</small>
+                <h4>#{reportId}</h4>
+                <div className="sp-heading">{classname}</div>
+                <small className="sp">{classID}</small>
               </div>
               <br></br>
               <Container>
                 <Row>
-                  <Col xs={6} className="p-0 mb-3">
+                  <Col xs={6} className="p-0">
                     <Form.Select
                       aria-label="Month"
                       as={Row}
+                      size="sm"
                       className="w-75"
                       value={seletedMonth}
                       onChange={(e) =>
@@ -174,35 +179,35 @@ export default function ReportDetail() {
                       })}
                     </Form.Select>
                   </Col>
-                  <Col xs={6} className="d-flex justify-content-end">
-                    <Link>Send to parent</Link>
+                  <Col xs={6} className="d-flex p-0 justify-content-end">
+                    <Link className="sp">Send to parent</Link>
                   </Col>
-                  <Col xs={6}>
+                  <Col xs={6} className="p-0">
                     <Form.Group
-                      as={Row}
+                      as={Col}
                       className="w-75"
                       controlId="formPlaintextEmail"
                     >
-                      <label>Student Name</label>
+                      <Form.Label className="sp">Student Name</Form.Label>
                       <Form.Control
                         aria-label="Month"
-                        size="md"
+                        size="sm"
                         type="text"
                         value={studentName}
                         disabled
                       ></Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col className="d-flex justify-content-end">
+                  <Col className="d-flex p-0 justify-content-end">
                     <Form.Group
-                      as={Row}
-                      className="w-50"
+                      as={Col}
+                      className="w-75"
                       controlId="formPlaintextEmail"
                     >
-                      <Form.Label>Student ID</Form.Label>
+                      <Form.Label className="sp">Student ID</Form.Label>
                       <Form.Select
                         aria-label="Student ID"
-                        size="md"
+                        size="sm"
                         aria-readonly
                         disabled
                         value={selectedStudent}
@@ -215,17 +220,20 @@ export default function ReportDetail() {
 
                 <br></br>
               </Container>
-              <br></br>
 
-              <table className="table table-striped w-100">
+              <table className="table table-sm">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Subject</th>
-                    <th className="text-center" scope="col">
+                    <th className="sp" scope="col">
+                      No
+                    </th>
+                    <th className="sp" scope="col">
+                      Subject
+                    </th>
+                    <th className="text-center sp" scope="col">
                       Score
                     </th>
-                    <th className="text-center" scope="col">
+                    <th className="text-center sp" scope="col">
                       Grade
                     </th>
                   </tr>
@@ -235,12 +243,14 @@ export default function ReportDetail() {
                     subjectItemOptions.map((si, index) => {
                       return (
                         <tr key={si.subjectId}>
-                          <td>{subjectItemOptions.indexOf(si) + 1}</td>
-                          <td>{si.subject}</td>
-                          <td className="d-flex justify-content-center">
-                            <Form.Control
+                          <td className="sp">
+                            {subjectItemOptions.indexOf(si) + 1}
+                          </td>
+                          <td className="sp">{si.subject}</td>
+                          <td className="d-flex sp justify-content-center">
+                            <input
                               name="score"
-                              className="w-25 text-center fw-bold"
+                              className="h-full border-0 text-center "
                               size="sm"
                               type="number"
                               value={si.score}
@@ -249,7 +259,7 @@ export default function ReportDetail() {
                               }
                             />
                           </td>
-                          <td className="fw-bold text-center">
+                          <td className="sp text-center">
                             {gradeList[si.grade - 1]}
                           </td>
                         </tr>
@@ -259,122 +269,105 @@ export default function ReportDetail() {
               </table>
             </Col>
           </Row>
-          <br></br>
-          <Row className="w-100">
+          <Row className="">
             <Col>
-              <Row>
-                <div>
-                  <span className="sp">Total Score</span>
-                </div>
-                <div>
-                  <Form.Control
-                    disabled
-                    value={totalScore}
-                    className="fw-bold text-center"
-                    size="sm"
-                    type="number"
-                  />
-                </div>
-              </Row>
+              <div>
+                <span className="sp">Total Score</span>
+              </div>
+              <div>
+                <input
+                  disabled
+                  value={totalScore}
+                  className="sp w-50 text-center"
+                  size="sm"
+                  type="number"
+                />
+              </div>
             </Col>
             <Col>
-              <Row>
-                <div>
-                  <span className="sp">Total Grade</span>
-                </div>
-                <div>
-                  <Form.Control
-                    disabled
-                    value={gradeList[totalGrade - 1]}
-                    className=" text-center fw-bold"
-                    size="sm"
-                    type="text"
-                  />
-                </div>
-              </Row>
+              <div>
+                <span className="sp">Total Grade</span>
+              </div>
+              <div>
+                <input
+                  disabled
+                  value={gradeList[totalGrade - 1]}
+                  className="sp w-50 text-center "
+                  size="sm"
+                  type="text"
+                />
+              </div>
             </Col>
             <Col>
-              <Row>
-                <div>
-                  <span classname="sp">Ranking</span>
-                </div>
-                <div>
-                  <Form.Control
-                    disabled
-                    value={totalScore}
-                    className="text-danger text-center fw-bold"
-                    size="sm"
-                    type="number"
-                  />
-                </div>
-              </Row>
+              <div>
+                <span className="sp">Ranking</span>
+              </div>
+              <div>
+                <input
+                  disabled
+                  value={totalScore}
+                  className="sp w-50 text-danger text-center "
+                  size="sm"
+                  type="number"
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div>
+                <span className="sp">Average</span>
+              </div>
+              <div>
+                <input
+                  disabled
+                  value={average}
+                  className="sp w-50 text-center "
+                  size="sm"
+                  type="number"
+                />
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <span className="sp">Absences</span>
+              </div>
+              <div>
+                <input
+                  onChange={(e) => setAbsence(e.target.value)}
+                  value={absence}
+                  className="sp w-50 text-center "
+                  size="sm"
+                  type="number"
+                />
+              </div>
+            </Col>
+            <Col>
+              <div>
+                <span className="sp">Permissions</span>
+              </div>
+              <div>
+                <input
+                  onChange={(e) => setPermission(e.target.value)}
+                  value={permission}
+                  className="sp w-50 text-center "
+                  size="sm"
+                  type="number"
+                />
+              </div>
             </Col>
           </Row>
           <br></br>
-          <Row className="w-100">
-            <Col>
-              <Row>
-                <div>
-                  <span className="sp">Average</span>
-                </div>
-                <div>
-                  <Form.Control
-                    disabled
-                    value={average}
-                    className=" text-center fw-bold"
-                    size="sm"
-                    type="number"
-                  />
-                </div>
-              </Row>
-            </Col>
-            <Col>
-              <Row>
-                <div>
-                  <span className="sp">Absences</span>
-                </div>
-                <div>
-                  <Form.Control
-                    onChange={(e) => setAbsence(e.target.value)}
-                    value={absence}
-                    className=" text-center fw-bold"
-                    size="sm"
-                    type="number"
-                  />
-                </div>
-              </Row>
-            </Col>
-            <Col>
-              <Row>
-                <div>
-                  <span className="sp">Permissions</span>
-                </div>
-                <div>
-                  <Form.Control
-                    onChange={(e) => setPermission(e.target.value)}
-                    value={permission}
-                    className=" text-center fw-bold"
-                    size="sm"
-                    type="number"
-                  />
-                </div>
-              </Row>
-            </Col>
-          </Row>
-          <br></br>
-          <br></br>
-          <Row className="w-100">
+          <Row>
             <Col>
               <Row>
                 <Col xs={3}>
-                  <span>Comment</span>
+                  <span className="sp">Teacher Comment</span>
                 </Col>
                 <Col>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlTextarea1"
-                  >
-                    <Form.Control
+                  <Form.Group className="mb-2" controlId="">
+                    <textarea
+                      className="sp w-50 w-100 pe-2 border-0"
                       onChange={(e) => setTeacherCmt(e.target.value)}
                       value={teacherCmt}
                       as="textarea"
@@ -385,36 +378,34 @@ export default function ReportDetail() {
               </Row>
             </Col>
           </Row>
-          <br></br>
-          <Row className="w-100">
+          <Row className="">
             <Col>
-              <Form.Label>Issued at</Form.Label>
+              <Form.Label className="sp">Issued at</Form.Label>
               <Form.Control
                 value={issuedAt}
                 onChange={(e) => setIssuedAt(e.target.value)}
-                className="fw-bold"
+                className=""
                 size="sm"
                 type="text"
               />
             </Col>
             <Col>
-              <Form.Label>Issued Date</Form.Label>
+              <Form.Label className="sp">Issued Date</Form.Label>
               <Form.Control
                 value={issuedDate}
                 onChange={(e) => setIssuedDate(e.target.value)}
-                className=" fw-bold"
+                className=""
                 size="sm"
                 type="date"
               />
             </Col>
           </Row>
           <br></br>
-          <br></br>
-          <Row className="w-100">
+          <Row className="">
             <Col>
               <Row>
-                <Col xs={4}>
-                  <span>Parent Comment</span>
+                <Col xs={3}>
+                  <span className="sp">Parent Comment</span>
                 </Col>
                 <Col>
                   <Form.Group
@@ -430,6 +421,7 @@ export default function ReportDetail() {
               </Row>
             </Col>
           </Row>
+          <br></br>
           <br></br>
         </div>
       )}

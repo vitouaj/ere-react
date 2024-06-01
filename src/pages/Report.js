@@ -241,7 +241,7 @@ export default function Report() {
   }
 
   return (
-    <div>
+    <Container className="h-75">
       {isLoading ? (
         <div className="row w-100 h-100 bg-light opacity-25">
           <div className="d-flex justify-content-center align-items-center">
@@ -265,26 +265,26 @@ export default function Report() {
               />
               <strong className="me-auto">Response</strong>
             </Toast.Header>
-            <Toast.Body>{error}</Toast.Body>
+            <Toast.Body>{result.message}</Toast.Body>
           </Toast>
           <Row>
             <Col>
               <div>
-                <h2>{classname}</h2>
-                <span>{classID}</span>
+                <h4 className="">{classname}</h4>
+                <span className="sp-normal">{classID}</span>
               </div>
               <br></br>
               <Row>
                 <Col>
-                  <button onClick={handleShow} className="btn btn-primary">
-                    <FontAwesomeIcon icon={faFileLines} />
-                    <span className="mx-3">Add new Report</span>
+                  <button onClick={handleShow} className="btn  btn-primary">
+                    <FontAwesomeIcon className="sp-normal" icon={faFileLines} />
+                    <span className="mx-2 sp-normal">New Report</span>
                   </button>
                 </Col>
                 <Col>
                   <Form.Select
                     aria-label="Month"
-                    size="md"
+                    size="sm"
                     onChange={handleFilterChange}
                   >
                     <option>-- This month --</option>
@@ -306,17 +306,15 @@ export default function Report() {
                 aria-labelledby="example-modal-sizes-title-lg"
               >
                 <Modal.Header closeButton>
-                  <Modal.Title id="example-modal-sizes-title-lg">
-                    Create Report
-                  </Modal.Title>
+                  <h4 className="">Create Report</h4>
                 </Modal.Header>
                 <Modal.Body>
                   <Container className="h-75 overflow-auto">
                     <Row>
                       <Col>
                         <div>
-                          <h2>{classname}</h2>
-                          <small>{classID}</small>
+                          <h4 className="">{classname}</h4>
+                          <span className="sp-normal">{classID}</span>
                         </div>
                         <br></br>
                         <Container>
@@ -391,7 +389,7 @@ export default function Report() {
                         </Container>
                         <br></br>
 
-                        <table className="table table-striped w-100">
+                        <table className="table table-sm w-100">
                           <thead>
                             <tr>
                               <th scope="col">No</th>
@@ -608,7 +606,7 @@ export default function Report() {
               </Modal>
 
               <br></br>
-              <table class="table table-striped">
+              <table class="table sp-normal">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
@@ -649,6 +647,6 @@ export default function Report() {
           </Row>
         </Container>
       )}
-    </div>
+    </Container>
   );
 }

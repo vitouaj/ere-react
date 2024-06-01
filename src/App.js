@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import ReportDetail from "./pages/ReportDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import StudentHomePage from "./pages/StudentHomePage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/student-homepage",
+    element: <StudentHomePage />,
   },
 ]);
 

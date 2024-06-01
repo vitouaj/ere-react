@@ -31,17 +31,12 @@ export default function SecondInnerLayout({ children }) {
           <Sidebar />
         </Col>
         <Col className="overflow-auto" xs={9}>
-          <Tabs
-            defaultActiveKey="profile"
-            id="fill-tab-example"
-            className="mb-3"
-            fill
-          >
-            <Tab eventKey="home" title="Reports">
+          <Tabs defaultActiveKey="profile" fill className="mb-3 ">
+            <Tab eventKey="report" className="sp" title="Reports">
               <Homepage />
             </Tab>
-            <Tab eventKey="profile" title="Subject-Item"></Tab>
-            <Tab eventKey="longer-tab" title="Student"></Tab>
+            <Tab eventKey="subject-item" title="Subject-Item"></Tab>
+            <Tab eventKey="student" title="Student"></Tab>
           </Tabs>
         </Col>
       </Row>

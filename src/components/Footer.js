@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <p class="col-md-4 mb-0 text-body-secondary">&copy; 2024 ERe, Inc</p>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      <p class="col-md-4 mb-0 sp">&copy; 2024 ERe, Inc</p>
 
       <a
         href="/"
@@ -10,27 +10,27 @@ export default function Footer() {
 
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">
+          <a href="#" class="px-2 sp-normal">
             Home
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">
+          <a href="#" class=" px-2 sp-normal">
             Features
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">
+          <a href="#" class=" px-2 sp-normal">
             Pricing
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">
+          <a href="#" class=" px-2 sp-normal">
             FAQs
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-body-secondary">
+          <a href="#" class=" px-2 sp-normal">
             About
           </a>
         </li>

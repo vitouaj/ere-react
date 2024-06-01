@@ -143,9 +143,9 @@ export default function Homepage() {
             </Toast.Header>
             <Toast.Body>{createClsRes.message}</Toast.Body>
           </Toast>
-          <h2>Welcome {user.username}!</h2>
+          <span className="sp-heading">Welcome {user.username}!</span>
           <br></br>
-
+          <br></br>
           <button onClick={handleShow} className="btn btn-primary">
             <FontAwesomeIcon icon={faChalkboardUser} />
             <span className="mx-3">Add new Classrooom</span>
@@ -187,14 +187,14 @@ export default function Homepage() {
 
           <br></br>
           <br></br>
-          <Row className="gap-3">
+          <div className="d-flex justify-content-between flex-wrap w-100">
             {classroomData.map((c) => {
               return (
                 <Col
                   onClick={() => viewClassDetail(c.id, c.name)}
-                  xs={5}
+                  xs={6}
                   id="card-custom"
-                  className="p-0"
+                  className="px-2"
                 >
                   <ClsCard
                     title={c.name}
@@ -204,7 +204,7 @@ export default function Homepage() {
                 </Col>
               );
             })}
-          </Row>
+          </div>
         </Container>
       )}
     </Layout>

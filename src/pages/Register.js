@@ -21,6 +21,7 @@ function Register() {
   const [error, setError] = useState("");
   const [validated, setValidated] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [role, setRole] = useState(2);
 
   async function doRegister(e) {
     const form = e.currentTarget;
@@ -43,7 +44,7 @@ function Register() {
       phone: phone,
       otherContact: parentEmail,
       profileId: "",
-      roleId: 2,
+      roleId: role,
     };
     var res = {};
     console.log(data);
@@ -86,8 +87,13 @@ function Register() {
       ) : (
         <Row className="h-100">
           <Col className="d-flex justify-content-center align-items-center">
-            {result ?? <span className="text-danger">{error}</span>}
-            <Form className="w-100 h-auto p-5 bg-light">
+            {error && <span className="text-danger">"{error}"</span>}
+            <Form
+              className="w-100 h-auto p-5 bg-light"
+              noValidate
+              validated={validated}
+              onSubmit={doRegister}
+            >
               <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="3">
                   Firstname
@@ -168,10 +174,28 @@ function Register() {
                 </Col>
               </Form.Group>
 
+              <Form.Group as={Row} className="mb-3">
+                <Form.Label column sm="3">
+                  Register as
+                </Form.Label>
+                <Col sm={9}>
+                  <Form.Select
+                    as={Col}
+                    aria-label="Register as"
+                    size="md"
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option>-- Select Role --</option>
+                    <option value={1}>Student</option>
+                    <option value={2}>Teacher</option>
+                  </Form.Select>
+                </Col>
+              </Form.Group>
+
               <br></br>
               <Row>
                 <Col className="d-flex justify-content-end">
-                  <button onClick={doRegister} className="btn btn-primary">
+                  <button type="submit" className="btn btn-primary">
                     Register
                   </button>
                 </Col>

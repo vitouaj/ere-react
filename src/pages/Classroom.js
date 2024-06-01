@@ -21,6 +21,7 @@ import Report from "./Report";
 
 export default function Classroom() {
   const [show, setShow] = useState(false);
+  const [roleId, setRoleId] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,7 +51,8 @@ export default function Classroom() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
     setClassname(name);
-
+    const localRole = window.sessionStorage.getItem("activeUserRole");
+    setRoleId(localRole);
     setClassID(paths.at(-1));
     getSubjectItem(paths.at(-1));
     getSubjectOptions();
@@ -73,7 +75,6 @@ export default function Classroom() {
   const [maxScore, setMaxScore] = useState(0);
   const [passingScore, setPassingScore] = useState(0);
   const [result, setResult] = useState({});
-
   const [isLoading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -153,125 +154,131 @@ export default function Classroom() {
               <Tab eventKey="reports" title="Reports">
                 <Report />
               </Tab>
-              <Tab eventKey="subject-item" title="Subject Item">
-                <Col>
-                  <br></br>
-                  <div>
-                    <h2>{classname}</h2>
-                    <span>{classID}</span>
-                  </div>
-                  <br></br>
-                  <div>
-                    <button onClick={handleShow} className="btn btn-primary">
-                      <FontAwesomeIcon icon={faBars} />
-                      <span className="mx-3"> Add Subject Item</span>
-                    </button>
-                  </div>
+              {roleId === "2" && (
+                <Tab eventKey="subject-item" title="Subject Item">
+                  <Col>
+                    <br></br>
+                    <div>
+                      <h4 className="">{classname}</h4>
+                      <span className="sp-normal">{classID}</span>
+                    </div>
+                    <br></br>
+                    <div>
+                      <button onClick={handleShow} className="btn btn-primary">
+                        <FontAwesomeIcon className="sp-normal" icon={faBars} />
+                        <span className="mx-2 sp-normal">New Subject Item</span>
+                      </button>
+                    </div>
 
-                  <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Add Subject Item</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="formPlaintextEmail"
-                      >
-                        <Form.Label column sm="3">
-                          Subject
-                        </Form.Label>
-                        <Col sm="9">
-                          <Form.Select
-                            onChange={(e) => setSeletedSubject(e.target.value)}
-                            type="text"
-                            placeholder="-- Choose a subject --"
-                          >
-                            <option>-- Select Suject --</option>
-                            {subjectOptions.map((item) => {
-                              return (
-                                <option value={item.subjectId}>
-                                  {item.subjectName}
-                                </option>
-                              );
-                            })}
-                          </Form.Select>
-                        </Col>
-                      </Form.Group>
-                      <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="formPlaintextEmail"
-                      >
-                        <Form.Label column sm="3">
-                          Max Score
-                        </Form.Label>
-                        <Col sm="9">
-                          <Form.Control
-                            onChange={(e) => setMaxScore(e.target.value)}
-                            value={maxScore}
-                            type="number"
-                            placeholder="100"
-                          />
-                        </Col>
-                      </Form.Group>
-                      <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="formPlaintextEmail"
-                      >
-                        <Form.Label column sm="3">
-                          Passing Score
-                        </Form.Label>
-                        <Col sm="9">
-                          <Form.Control
-                            onChange={(e) => setPassingScore(e.target.value)}
-                            value={passingScore}
-                            type="number"
-                            placeholder="100"
-                          />
-                        </Col>
-                      </Form.Group>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        Cancel
-                      </Button>
-                      <Button variant="primary" onClick={doCreateSubjectItem}>
-                        Create
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
-                  <br></br>
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Max score</th>
-                        <th scope="col">Passing score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {subjectItems.map((item) => {
-                        return (
-                          <tr key={item.id}>
-                            <th scope="row">
-                              {subjectItems.indexOf(item) + 1}
-                            </th>
-                            <td>{item.subjectId}</td>
-                            <td>{item.maxScore}</td>
-                            <td>{item.passingScore}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </Col>
-              </Tab>
-              <Tab eventKey="students" title="Students">
-                <Student />
-              </Tab>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Add Subject Item</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form.Group
+                          as={Row}
+                          className="mb-3"
+                          controlId="formPlaintextEmail"
+                        >
+                          <Form.Label column sm="3">
+                            Subject
+                          </Form.Label>
+                          <Col sm="9">
+                            <Form.Select
+                              onChange={(e) =>
+                                setSeletedSubject(e.target.value)
+                              }
+                              type="text"
+                              placeholder="-- Choose a subject --"
+                            >
+                              <option>-- Select Suject --</option>
+                              {subjectOptions.map((item) => {
+                                return (
+                                  <option value={item.subjectId}>
+                                    {item.subjectName}
+                                  </option>
+                                );
+                              })}
+                            </Form.Select>
+                          </Col>
+                        </Form.Group>
+                        <Form.Group
+                          as={Row}
+                          className="mb-3"
+                          controlId="formPlaintextEmail"
+                        >
+                          <Form.Label column sm="3">
+                            Max Score
+                          </Form.Label>
+                          <Col sm="9">
+                            <Form.Control
+                              onChange={(e) => setMaxScore(e.target.value)}
+                              value={maxScore}
+                              type="number"
+                              placeholder="100"
+                            />
+                          </Col>
+                        </Form.Group>
+                        <Form.Group
+                          as={Row}
+                          className="mb-3"
+                          controlId="formPlaintextEmail"
+                        >
+                          <Form.Label column sm="3">
+                            Passing Score
+                          </Form.Label>
+                          <Col sm="9">
+                            <Form.Control
+                              onChange={(e) => setPassingScore(e.target.value)}
+                              value={passingScore}
+                              type="number"
+                              placeholder="100"
+                            />
+                          </Col>
+                        </Form.Group>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Cancel
+                        </Button>
+                        <Button variant="primary" onClick={doCreateSubjectItem}>
+                          Create
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                    <br></br>
+                    <table class="table sp-normal">
+                      <thead>
+                        <tr>
+                          <th scope="col">No</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Max score</th>
+                          <th scope="col">Passing score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {subjectItems.map((item) => {
+                          return (
+                            <tr key={item.id}>
+                              <th scope="row">
+                                {subjectItems.indexOf(item) + 1}
+                              </th>
+                              <td>{item.subjectId}</td>
+                              <td>{item.maxScore}</td>
+                              <td>{item.passingScore}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </Col>
+                </Tab>
+              )}
+              {roleId === "2" && (
+                <Tab eventKey="students" title="Students">
+                  <Student />
+                </Tab>
+              )}
             </Tabs>
           </Row>
         </Container>
