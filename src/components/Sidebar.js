@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   return (
     <div>
-      <Container className="p-0 bg-light">
+      <Container className="p-0">
         <br></br>
         {roleId === "1" ? (
           <Link to="/student-homepage">

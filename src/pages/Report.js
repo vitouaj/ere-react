@@ -251,7 +251,6 @@ export default function Report({ classroom }) {
         </div>
       ) : (
         <Container>
-          <br></br>
           <Toast
             bg={result.success === true ? "success" : "danger"}
             show={showToast}
@@ -270,11 +269,6 @@ export default function Report({ classroom }) {
           </Toast>
           <Row>
             <Col>
-              <div>
-                <h4 className="">{classroom.name}</h4>
-                <span className="sp-normal">{classroom.classroomId}</span>
-              </div>
-              <br></br>
               <Row>
                 <Col>
                   <button onClick={handleShow} className="btn  btn-primary">

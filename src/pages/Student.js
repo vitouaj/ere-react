@@ -28,26 +28,21 @@ import { useEffect } from "react";
 
 export default function Student({ classroom }) {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [studentIDs, setStudentIDs] = useState("");
-
   const [result, setResult] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
-
   const [classID, setClassID] = useState("");
-  const [classname, setClassname] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
     const pathname = window.location.pathname;
     var paths = pathname.split("/");
-
+    setClassID(paths.at(-1));
     // get students function
-    getStudents(paths.at(-1));
   }, []);
 
   async function doEnrollStudents(e) {
@@ -88,19 +83,6 @@ export default function Student({ classroom }) {
     }, 5000);
   }
 
-  const [studentList, setStudentList] = useState([]);
-
-  async function getStudents(id) {
-    var url = `http://localhost:5137/api/v1/classroom/${id}/enroll`;
-    try {
-      var result = await axios.get(url);
-      setStudentList(result.data.payload);
-      console.log(result);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   return (
     <div>
       {isLoading ? (
@@ -128,17 +110,7 @@ export default function Student({ classroom }) {
             <Toast.Body>{error}</Toast.Body>
           </Toast>
           <Row>
-            {/* <Col xs={3}>
-              <br></br>
-              <InnerSidebar classId={classID} name={classname} />
-            </Col> */}
             <Col>
-              <br></br>
-              <div>
-                <h4 className="">{classroom.name}</h4>
-                <span className="sp-normal">{classroom.classroomId}</span>
-              </div>
-              <br></br>
               <div>
                 <button onClick={handleShow} className="btn btn-primary">
                   <FontAwesomeIcon className="sp-normal" icon={faPeopleGroup} />
@@ -190,25 +162,28 @@ export default function Student({ classroom }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {studentList.map((s) => {
-                    return (
-                      <tr>
-                        <th scope="row">{studentList.indexOf(s) + 1}</th>
-                        <td>{s.studentId}</td>
-                        <td>{s.name}</td>
-                        <td>
-                          <FontAwesomeIcon
-                            className="text-primary me-3"
-                            icon={faPenToSquare}
-                          />
-                          <FontAwesomeIcon
-                            className="text-danger"
-                            icon={faTrashCan}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {classroom.students !== undefined &&
+                    classroom.students.map((s) => {
+                      return (
+                        <tr>
+                          <th scope="row">
+                            {classroom.students.indexOf(s) + 1}
+                          </th>
+                          <td>{s.studentId}</td>
+                          <td>{s.studentName}</td>
+                          <td>
+                            <FontAwesomeIcon
+                              className="text-primary me-3"
+                              icon={faPenToSquare}
+                            />
+                            <FontAwesomeIcon
+                              className="text-danger"
+                              icon={faTrashCan}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </Col>

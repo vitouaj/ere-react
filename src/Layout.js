@@ -20,7 +20,7 @@ export default function Layout({ children }) {
         <Navigation userEmail={userEmail} />
       </Container>
       <Row className="h-100 w-100">
-        <Col className="bg-light">
+        <Col className="">
           <br></br>
           <br></br>
           <Sidebar />
