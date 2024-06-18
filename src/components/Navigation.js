@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Navigation({ userEmail }) {
   return (
     <nav
-      class="navbar navbar-expand-lg bg-light
+      class="navbar navbar-expand-sm
     "
     >
       <div class="container-fluid">

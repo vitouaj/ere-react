@@ -13,10 +13,15 @@
 .sp-heading {
   font-size: 18px;
   font-weight: bold;
+  display: block;
 }
 
 .sp-normal {
   font-size: 14px;
+}
+
+.sp-small {
+  font-size: 12px;
 }
 
 .sp-heading-no-bold {

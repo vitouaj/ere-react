@@ -251,7 +251,6 @@ export default function Report({ classroom }) {
         </div>
       ) : (
         <Container>
-          <br></br>
           <Toast
             bg={result.success === true ? "success" : "danger"}
             show={showToast}
@@ -270,16 +269,14 @@ export default function Report({ classroom }) {
           </Toast>
           <Row>
             <Col>
-              <div>
-                <h4 className="">{classroom.name}</h4>
-                <span className="sp-normal">{classroom.classroomId}</span>
-              </div>
-              <br></br>
               <Row>
                 <Col>
-                  <button onClick={handleShow} className="btn  btn-primary">
+                  <button
+                    onClick={handleShow}
+                    className="border-0 py-1 bg-primary text-white rounded-1"
+                  >
                     <FontAwesomeIcon className="sp-normal" icon={faFileLines} />
-                    <span className="mx-2 sp-normal">New Report</span>
+                    <span className="ms-2 sp-normal">New Report</span>
                   </button>
                 </Col>
                 <Col>

@@ -6,13 +6,24 @@ import {
   faSchool,
   faPenToSquare,
   faTrashCan,
+  faUserPen,
+  faClock,
+  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPersonCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ClassRafiki from "../Classroom-rafiki.svg";
 
-function ClsCard({ title, classId, teacherId }) {
+function ClsCard({
+  title,
+  classId,
+  teacherId,
+  numberOfStudents,
+  updatedBy,
+  updatedAt,
+}) {
   const navigate = useNavigate();
   function viewClassDetail(id, name) {
     navigate("/classroom/" + id);
@@ -57,11 +68,12 @@ function ClsCard({ title, classId, teacherId }) {
     };
     try {
       result = await axios.put("http://localhost:5137/api/v1/classroom", data);
+      console.log(result);
     } catch (e) {
       console.log(e);
     }
 
-    if (result.data.success === true) {
+    if (result.status === 200) {
       window.location.reload();
     }
   }
@@ -70,24 +82,8 @@ function ClsCard({ title, classId, teacherId }) {
     <div class="card text-dark bg-light mb-3 w-100">
       <Modal show={showDelete} onHide={handleCloseDelete}>
         <Modal.Header closeButton>
-          <Modal.Title>Are you sure you want to delete?</Modal.Title>
+          <span className="sp-heading">Are you sure you want to delete?</span>
         </Modal.Header>
-        {/* <Modal.Body>
-          <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-            <Form.Label column sm="3">
-              Classname
-            </Form.Label>
-            <Col sm="9">
-              <Form.Control
-                required
-                type="text"
-                placeholder="My Class"
-                value={classnameUpdate}
-                onChange={(e) => setClassnameUpdate(e.target.value)}
-              />
-            </Col>
-          </Form.Group>
-        </Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseDelete}>
             Dismiss
@@ -129,9 +125,10 @@ function ClsCard({ title, classId, teacherId }) {
       </Modal>
       <div class="card-header d-flex justify-content-between">
         <div>
-          <FontAwesomeIcon className="text-primary" icon={faSchool} />
-          <span className="ms-2 sp">{classId}</span>
+          {/* <FontAwesomeIcon className="text-primary" icon={faSchool} /> */}
+          <span className="sp-heading overflow-hidden">{title}</span>
         </div>
+
         <div>
           <FontAwesomeIcon
             onClick={handleShowUpdate}
@@ -146,18 +143,32 @@ function ClsCard({ title, classId, teacherId }) {
         </div>
       </div>
       <div class="card-body">
-        <a
+        {/* <span
           onClick={() => viewClassDetail(classId)}
           class="card-title sp-heading-no-bold"
         >
           {title}
-        </a>
-        <div>
-          <FontAwesomeIcon
-            className="text-primary mt-2"
-            icon={faPersonCircleCheck}
-          />
-          <span class="card-text ms-2 sp">{teacherId}</span>
+        </span> */}
+        {/* <div>
+          <FontAwesomeIcon className="text-primary mt-2" icon={faUserPen} />
+          <span class="card-text ms-2 sp">{updatedBy}</span>
+        </div> */}
+        <div
+          onClick={() => viewClassDetail(classId)}
+          className="d-flex justify-content-center p-0 m-0"
+        >
+          <img className="w-75 " src={ClassRafiki} alt="class-rafiki" />
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <div>
+            <FontAwesomeIcon className="text-primary mt-2" icon={faUserGroup} />
+            <span class="card-text ms-2 sp">{numberOfStudents} Students</span>
+          </div>
+          <div>
+            <FontAwesomeIcon className="text-primary mt-2" icon={faClock} />
+            <span class="card-text ms-2 sp">{updatedAt}</span>
+          </div>
         </div>
       </div>
     </div>
