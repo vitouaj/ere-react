@@ -124,7 +124,7 @@ function ClsCard({
         </Modal.Footer>
       </Modal>
       <div class="card-header d-flex justify-content-between">
-        <div onClick={() => viewClassDetail(classId)}>
+        <div>
           {/* <FontAwesomeIcon className="text-primary" icon={faSchool} /> */}
           <span className="sp-heading overflow-hidden">{title}</span>
         </div>
@@ -153,7 +153,10 @@ function ClsCard({
           <FontAwesomeIcon className="text-primary mt-2" icon={faUserPen} />
           <span class="card-text ms-2 sp">{updatedBy}</span>
         </div> */}
-        <div className="d-flex justify-content-center p-0 m-0">
+        <div
+          onClick={() => viewClassDetail(classId)}
+          className="d-flex justify-content-center p-0 m-0"
+        >
           <img className="w-75 " src={ClassRafiki} alt="class-rafiki" />
         </div>
 
