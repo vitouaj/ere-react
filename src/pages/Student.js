@@ -13,6 +13,11 @@ import {
   faPeopleGroup,
   faUsersViewfinder,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faPenToSquare,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import Layout from "../Layout";
 import Sidebar from "../components/Sidebar";
 import { Route } from "react-router-dom";
@@ -21,7 +26,7 @@ import InnerSidebar from "../components/InnerSidebar";
 import axios from "axios";
 import { useEffect } from "react";
 
-export default function Student() {
+export default function Student({ classroom }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -40,11 +45,6 @@ export default function Student() {
   useEffect(() => {
     const pathname = window.location.pathname;
     var paths = pathname.split("/");
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("name");
-    setClassname(name);
-
-    setClassID(paths.at(-1));
 
     // get students function
     getStudents(paths.at(-1));
@@ -135,8 +135,8 @@ export default function Student() {
             <Col>
               <br></br>
               <div>
-                <h4 className="">{classname}</h4>
-                <span className="sp-normal">{classID}</span>
+                <h4 className="">{classroom.name}</h4>
+                <span className="sp-normal">{classroom.classroomId}</span>
               </div>
               <br></br>
               <div>
@@ -186,6 +186,7 @@ export default function Student() {
                     <th scope="col">No</th>
                     <th scope="col">Id</th>
                     <th scope="col">Student Name</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -195,6 +196,16 @@ export default function Student() {
                         <th scope="row">{studentList.indexOf(s) + 1}</th>
                         <td>{s.studentId}</td>
                         <td>{s.name}</td>
+                        <td>
+                          <FontAwesomeIcon
+                            className="text-primary me-3"
+                            icon={faPenToSquare}
+                          />
+                          <FontAwesomeIcon
+                            className="text-danger"
+                            icon={faTrashCan}
+                          />
+                        </td>
                       </tr>
                     );
                   })}

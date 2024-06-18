@@ -18,8 +18,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-export default function Report() {
+export default function Report({ classroom }) {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
@@ -270,8 +271,8 @@ export default function Report() {
           <Row>
             <Col>
               <div>
-                <h4 className="">{classname}</h4>
-                <span className="sp-normal">{classID}</span>
+                <h4 className="">{classroom.name}</h4>
+                <span className="sp-normal">{classroom.classroomId}</span>
               </div>
               <br></br>
               <Row>
@@ -615,6 +616,7 @@ export default function Report() {
                     <th scope="col">Month</th>
                     <th scope="col">Issued at</th>
                     <th scope="col">Parent Comment</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -638,6 +640,16 @@ export default function Report() {
                         <td>{report.month}</td>
                         <td>{report.issuedAt.slice(0, 10)}</td>
                         <td>{report.parentCmt}</td>
+                        <td>
+                          <FontAwesomeIcon
+                            className="text-primary mx-3"
+                            icon={faPenToSquare}
+                          />
+                          <FontAwesomeIcon
+                            className="text-danger"
+                            icon={faTrashCan}
+                          />
+                        </td>
                       </tr>
                     );
                   })}

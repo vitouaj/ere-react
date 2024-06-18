@@ -110,10 +110,6 @@ export default function Homepage() {
     }, 5000);
   }
 
-  function viewClassDetail(id, name) {
-    navigate("/classroom/" + id + "?name=" + name);
-  }
-
   return (
     <Layout>
       {isLoading ? (
@@ -190,12 +186,7 @@ export default function Homepage() {
           <div className="d-flex justify-content-between flex-wrap w-100">
             {classroomData.map((c) => {
               return (
-                <Col
-                  onClick={() => viewClassDetail(c.id, c.name)}
-                  xs={6}
-                  id="card-custom"
-                  className="px-2"
-                >
+                <Col xs={6} id="card-custom" className="px-2">
                   <ClsCard
                     title={c.name}
                     teacherId={c.teacherId}

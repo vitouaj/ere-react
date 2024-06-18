@@ -11,7 +11,11 @@ import {
   Toast,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faGripLines } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faPenToSquare,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import Layout from "../Layout";
 import InnerSidebar from "../components/InnerSidebar";
 import { useEffect, useState } from "react";
@@ -27,6 +31,8 @@ export default function Classroom() {
   const handleShow = () => setShow(true);
 
   const [subjectItems, setSubjectItems] = useState([]);
+
+  const [classData, setClassData] = useState({});
 
   async function getSubjectItem(classId) {
     var result = {};
@@ -48,12 +54,11 @@ export default function Classroom() {
   useEffect(() => {
     const pathname = window.location.pathname;
     var paths = pathname.split("/");
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("name");
-    setClassname(name);
     const localRole = window.sessionStorage.getItem("activeUserRole");
     setRoleId(localRole);
+
     setClassID(paths.at(-1));
+    getClassroomById(paths.at(-1));
     getSubjectItem(paths.at(-1));
     getSubjectOptions();
   }, []);
@@ -66,6 +71,18 @@ export default function Classroom() {
         "http://localhost:5137/api/v1/classroom/subjects"
       );
       setSubjectOptions(result.data.payload);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function getClassroomById(id) {
+    try {
+      var result = await axios.get(
+        "http://localhost:5137/api/v1/classroom/" + id
+      );
+      setClassData(result.data.payload);
+      console.log(result.data.payload);
     } catch (e) {
       console.log(e);
     }
@@ -152,15 +169,15 @@ export default function Classroom() {
               fill
             >
               <Tab eventKey="reports" title="Reports">
-                <Report />
+                <Report classroom={classData} />
               </Tab>
               {roleId === "2" && (
                 <Tab eventKey="subject-item" title="Subject Item">
                   <Col>
                     <br></br>
                     <div>
-                      <h4 className="">{classname}</h4>
-                      <span className="sp-normal">{classID}</span>
+                      <h4 className="">{classData.name}</h4>
+                      <span className="sp-normal">{classData.classroomId}</span>
                     </div>
                     <br></br>
                     <div>
@@ -254,6 +271,7 @@ export default function Classroom() {
                           <th scope="col">Subject</th>
                           <th scope="col">Max score</th>
                           <th scope="col">Passing score</th>
+                          <th scope="col">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -266,6 +284,16 @@ export default function Classroom() {
                               <td>{item.subjectId}</td>
                               <td>{item.maxScore}</td>
                               <td>{item.passingScore}</td>
+                              <td>
+                                <FontAwesomeIcon
+                                  className="text-primary me-3"
+                                  icon={faPenToSquare}
+                                />
+                                <FontAwesomeIcon
+                                  className="text-danger"
+                                  icon={faTrashCan}
+                                />
+                              </td>
                             </tr>
                           );
                         })}
@@ -276,7 +304,7 @@ export default function Classroom() {
               )}
               {roleId === "2" && (
                 <Tab eventKey="students" title="Students">
-                  <Student />
+                  <Student classroom={classData} />
                 </Tab>
               )}
             </Tabs>
