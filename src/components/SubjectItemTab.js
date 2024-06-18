@@ -78,9 +78,12 @@ export default function SubjectItemTab({ classroom }) {
   return (
     <Col>
       <div>
-        <button onClick={handleShow} className="btn btn-primary">
+        <button
+          onClick={handleShow}
+          className="border-0 py-1 bg-primary text-white rounded-1"
+        >
           <FontAwesomeIcon className="sp-normal" icon={faBars} />
-          <span className="mx-2 sp-normal">New Subject Item</span>
+          <span className="ms-2 sp-normal">Subject Item</span>
         </button>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -162,7 +165,7 @@ export default function SubjectItemTab({ classroom }) {
                   <th scope="row">
                     {classroom.subjectItems.indexOf(item) + 1}
                   </th>
-                  <td>{item.subjectId}</td>
+                  <td>{item.name}</td>
                   <td>{item.maxScore}</td>
                   <td>{item.passingScore}</td>
                   <td>

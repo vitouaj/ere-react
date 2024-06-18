@@ -112,9 +112,12 @@ export default function Student({ classroom }) {
           <Row>
             <Col>
               <div>
-                <button onClick={handleShow} className="btn btn-primary">
+                <button
+                  onClick={handleShow}
+                  className="border-0 py-1 bg-primary text-white rounded-1"
+                >
                   <FontAwesomeIcon className="sp-normal" icon={faPeopleGroup} />
-                  <span className="mx-2 sp-normal"> Enroll Students</span>
+                  <span className="ms-2 sp-normal"> Enroll Students</span>
                 </button>
               </div>
 

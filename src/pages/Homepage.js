@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Homepage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChalkboardUser } from "@fortawesome/free-solid-svg-icons";
+import { faChalkboardUser, faPlus } from "@fortawesome/free-solid-svg-icons";
 export default function Homepage() {
   const [show, setShow] = useState(false);
 
@@ -141,10 +141,12 @@ export default function Homepage() {
           </Toast>
           <span className="sp-heading">Welcome {user.username}!</span>
           <br></br>
-          <br></br>
-          <button onClick={handleShow} className="btn btn-primary">
-            <FontAwesomeIcon icon={faChalkboardUser} />
-            <span className="mx-3">Add new Classrooom</span>
+          <button
+            onClick={handleShow}
+            className="border-0 py-1 bg-primary text-white rounded-1"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <span className="ms-2 sp-normal">Classrooom</span>
           </button>
 
           <Modal show={show} onHide={handleClose}>
@@ -191,6 +193,8 @@ export default function Homepage() {
                     title={c.name}
                     teacherId={c.teacherId}
                     classId={c.id}
+                    numberOfStudents={c.numberOfStudents}
+                    updatedAt={c.updatedAt}
                   />
                 </Col>
               );

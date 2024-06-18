@@ -122,14 +122,14 @@ export default function Classroom() {
           </Toast>
           <Row className="content">
             <div>
-              <h4 className="">{classData.name}</h4>
-              <span className="sp-normal">{classData.classroomId}</span>
+              <span className="sp-heading">{classData.name}</span>
+              <span className="sp-small">{classData.classroomId}</span>
             </div>
-            <br></br>
+
             <Tabs
               defaultActiveKey="reports"
               id="fill-tab-example"
-              className="mb-3"
+              className="my-3"
               fill
             >
               <Tab eventKey="reports" title="Reports">

@@ -271,9 +271,12 @@ export default function Report({ classroom }) {
             <Col>
               <Row>
                 <Col>
-                  <button onClick={handleShow} className="btn  btn-primary">
+                  <button
+                    onClick={handleShow}
+                    className="border-0 py-1 bg-primary text-white rounded-1"
+                  >
                     <FontAwesomeIcon className="sp-normal" icon={faFileLines} />
-                    <span className="mx-2 sp-normal">New Report</span>
+                    <span className="ms-2 sp-normal">New Report</span>
                   </button>
                 </Col>
                 <Col>
