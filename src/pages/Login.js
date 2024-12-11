@@ -66,6 +66,7 @@ function Login() {
     }
   }
 
+  const [tan, isTan] = useState(false)
   const [validated, setValidated] = useState(false);
 
   return (
